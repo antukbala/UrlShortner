@@ -10,6 +10,13 @@ def index(request):
 def create(request):
     if request.method == 'POST':
         link = request.POST['link']
+
+        if link.startswith('https://'):
+            link = link[8:]
+
+        if link.startswith('http://'):
+            link = link[7:]
+            
         uid = str(uuid.uuid4())[:5]
         new_url = Url(link=link, uuid=uid)
         new_url.save()
